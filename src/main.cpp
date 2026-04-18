@@ -19,7 +19,7 @@ struct Config {
     std::string report_dir = "report";
     std::string calculix_dir = "calculix";
     size_t chunk_size = 50;
-    double interpolation_factor = 0.5;
+    double interpolation_factor = 0.1;
     bool dry_run = false;
     bool test_mode = false;
     bool enable_blocks = true;
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
         if (arg == "--test" && i+1<argc) {
             std::string m = argv[++i];
             if (m=="dry") cfg.dry_run = true;
-            else if (m=="small") cfg.interpolation_factor = 0.2;
+            else if (m=="small") cfg.interpolation_factor = 0.1;
             else if (m=="complete") cfg.test_mode = true;
         }
         else if (arg == "--no-blocks") cfg.enable_blocks = false;
@@ -97,6 +97,7 @@ int main(int argc, char* argv[]) {
         // OPTIMIERT: Interpolation mit Chunking
         bonesim::Logger::info("Starting interpolation (factor " + std::to_string(cfg.interpolation_factor) + ")...");
         auto interpolated = bonesim::interpolate_volume_chunked(closed, cfg.interpolation_factor, 32);
+        // auto interpolated = closed; // only used when you want to use thewhole volume directly
         bonesim::Logger::info("Interpolation done");
 
         // Closed freigeben
