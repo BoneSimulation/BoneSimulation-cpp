@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  bonesim:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../data:/workspace/data
+      - ../pictures:/workspace/pictures
+      - ../report:/workspace/report
+      - ../calculix:/workspace/calculix
+    command: --test complete

@@ -1,0 +1,10 @@
+FROM archlinux:latest
+
+RUN pacman -Syu --noconfirm \
+    base-devel cmake eigen git \
+    vtk cgal boost libtiff \
+    gdb valgrind clang \
+    && pacman -Scc --noconfirm
+
+WORKDIR /workspace
+CMD ["/bin/bash"]
